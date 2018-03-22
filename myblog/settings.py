@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from .internal_setting import get_database_name
+from .internal_setting import get_engine_name
+from .internal_setting import get_host
+from .internal_setting import get_password
+from .internal_setting import get_port
+from .internal_setting import get_user_name
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,12 +31,12 @@ SECRET_KEY = '@t_xpr*x98cokzxn%oc9twj0g0=1ixha)i8lg#0%+z+z05swz+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -75,11 +81,14 @@ WSGI_APPLICATION = 'myblog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': get_engine_name(),
+        'NAME': get_database_name(),
+        'USER': get_user_name(),
+        'PASSWORD': get_password(),
+        'HOST': get_host(),
+        'PORT': get_port(),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
